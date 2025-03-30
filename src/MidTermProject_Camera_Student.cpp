@@ -61,9 +61,20 @@ int main(int argc, const char *argv[])
 
         // push image into data frame buffer
         DataFrame frame;
-        frame.cameraImg = imgGray;
-        dataBuffer.push_back(frame);
-
+        frame.cameraImg = imgGray;     
+        
+        if (dataBuffer.size() < dataBufferSize) 
+        {
+            dataBuffer.push_back(frame);
+        }
+        else
+        {
+            // if the buffer is full, remove the oldest frame
+            // and add the new frame to the end of the buffer
+            // this is a ring buffer implementation
+            dataBuffer.erase(dataBuffer.begin());
+            dataBuffer.push_back(frame);
+        }
         //// EOF STUDENT ASSIGNMENT
         cout << "#1 : LOAD IMAGE INTO BUFFER done" << endl;
 
@@ -72,31 +83,49 @@ int main(int argc, const char *argv[])
         // extract 2D keypoints from current image
         vector<cv::KeyPoint> keypoints; // create empty feature list for current image
         string detectorType = "SHITOMASI";
+        
 
         //// STUDENT ASSIGNMENT
         //// TASK MP.2 -> add the following keypoint detectors in file matching2D.cpp and enable string-based selection based on detectorType
         //// -> HARRIS, FAST, BRISK, ORB, AKAZE, SIFT
-
+        //string detectorType = "HARRIS";
+        //string detectorType = "BRISK";
+        //string detectorType = "ORB";
+        //string detectorType = "AKAZE";
+        //string detectorType = "SIFT";
         if (detectorType.compare("SHITOMASI") == 0)
         {
             detKeypointsShiTomasi(keypoints, imgGray, false);
         }
+        else if (detectorType.compare("HARRIS") == 0)
+        {
+            detKeypointsHarris(keypoints, imgGray, false);
+        }
         else
         {
-            //...
+            detKeypointsModern(keypoints, imgGray, detectorType, false);
         }
         //// EOF STUDENT ASSIGNMENT
 
         //// STUDENT ASSIGNMENT
         //// TASK MP.3 -> only keep keypoints on the preceding vehicle
-
-        // only keep keypoints on the preceding vehicle
         bool bFocusOnVehicle = true;
         cv::Rect vehicleRect(535, 180, 180, 150);
         if (bFocusOnVehicle)
         {
-            // ...
+            std::cout << "Before filter keypoints: " << keypoints.size() << std::endl;
+            std::vector<cv::KeyPoint> filtered_keypoints;
+            // Only keypoints inside vehicleRect
+            for (auto it=keypoints.begin(); it != keypoints.end(); it++ ) 
+            {
+                if (vehicleRect.contains(it->pt)) {                 
+                    filtered_keypoints.push_back(*it);
+                }
+            }
+            std::cout << "After filter keypoints: " << filtered_keypoints.size() << std::endl;
+            keypoints = filtered_keypoints;
         }
+      
 
         //// EOF STUDENT ASSIGNMENT
 
