@@ -65,14 +65,15 @@ Lowe's distance ratio test was implemented by comparing the best and second best
 Count the number of keypoints on the preceding vehicle for all 10 images and take note of the distribution of their neighborhood size. Do this for all the detectors you have implemented.
 
 | Detector | image0 | image1 | image2 | image3 | image4 | image5 | image6 | image7 | image8 | image9 | Neighborhood size |
-| :---:    | :---:  | :---:  | :---:  |  :---: | :---:  | :---:  | :---:  | :---:  | :---:  | :---:  | :---: |
-| SHITOMASI | 125 | 118 | 123 | 120 | 120 | 113 | 114 | 123 | 111 | 112 | 4
-| HARRIS | 17 | 14 | 18 | 21 | 26 | 43 | 18 | 30 | 26 | 34 | 6
-| FAST | 121 | 115 | 127 | 122 | 111 | 113 | 107 | 103 | 112 | 117 | 7
-| BRISK | 264 | 282 | 282 | 277 | 297 | 279 | 289 | 272 | 266 | 254 | 21
-| ORB | 92 | 102 | 106 | 113 | 109 | 125 | 130 | 129 | 127 | 128 | 57
-| AKAZE | 166 | 157 | 161 | 155 | 163 | 164 | 173 | 175 | 177 | 179 | 7.8
-| SIFT | 138 | 132 | 124 | 137 | 134 | 140 | 137 | 148 | 159 | 137 | 5.6
+| :---:    | :---:  | :---:  | :---:  |  :---: | :---:  | :---:  | :---:  | :---:  | :---:  | :---:  | :---: | 
+|SHITOMASI|125 |118 |123 |120 |120 |113 |114 |123 |111 |112 |4.000000 
+|HARRIS|10 |13 |17 |17 |20 |18 |17 |25 |20 |19 |6.000000 
+|FAST|121 |115 |127 |122 |111 |113 |107 |103 |112 |117 |7.000000 
+|BRISK|264 |282 |282 |277 |297 |279 |289 |272 |267 |254 |22.035887 
+|ORB|92 |102 |106 |113 |109 |125 |130 |129 |127 |128 |54.388531 
+|AKAZE|166 |157 |161 |155 |163 |164 |173 |175 |177 |179 |7.885763 
+|SIFT|138 |132 |124 |137 |134 |140 |137 |148 |159 |137 |5.625093 
+
 
 ### MP.7 Performance Evaluation 2
 Count the number of matched keypoints for all 10 images using all possible combinations of detectors and descriptors. In the matching step, the BF approach is used with the descriptor distance ratio set to 0.8.
@@ -80,38 +81,40 @@ Count the number of matched keypoints for all 10 images using all possible combi
 Some combinations of detector and descriptor doesn't make sense, those results are N/A.
 
 | Detector,Descriptor | BRISK | BRIEF | ORB | FREAK | AKAZE | SIFT |
-| --- | --- | --- |--- |--- |--- |--- |
-| SHITOMASI | 686 |922|866|688|N/A|900|
-| HARRIS | 138|169 |164|134|N/A|167|
-| FAST | 638 |805|831|645|N/A|763|
-| BRISK | **1426** | **1512** |1379|1386|N/A| **1529** |
-| ORB | 678 |486|691|395|N/A|742|
-| AKAZE | 1020 |1169|1096|1002|1199|1176|
-| SIFT | 491 |695|N/A|492|N/A|759|
+| --- | --- | --- |--- |--- |--- |--- | 
+|SHITOMASI|1067 |1067 |1067 |1067 |N/A |926 
+|HARRIS|157 |157 |157 |157 |N/A |147 
+|FAST|1031 |1031 |1031 |1031 |N/A |825 
+|BRISK|2509 |2509 |2509 |2327 |N/A |1665 
+|ORB|950 |1033 |1033 |549 |N/A |765 
+|AKAZE|1491 |1491 |1491 |1491 |1491 |1282 
+|SIFT|1248 |1249 |N/A |1239 |N/A |804 
+
 
 ### MP.7 Performance Evaluation 3
 Log the time it takes for keypoint detection and descriptor extraction. The results must be entered into a spreadsheet and based on this data, the TOP3 detector / descriptor combinations must be recommended as the best choice for our purpose of detecting keypoints on vehicles.
 
 Some combinations of detector and descriptor doesn't make sense, those results are N/A.
+Time in milliseconds.
+| Detector,Descriptor | BRISK | BRIEF | ORB | FREAK | AKAZE | SIFT |
+| --- | --- | --- |--- |--- |--- |--- | 
+|SHITOMASI|1067 |1067 |1067 |1067 |N/A |926 
+|HARRIS|157 |157 |157 |157 |N/A |147 
+|FAST|1031 |1031 |1031 |1031 |N/A |825 
+|BRISK|2509 |2509 |2509 |2327 |N/A |1665 
+|ORB|950 |1033 |1033 |549 |N/A |765 
+|AKAZE|1491 |1491 |1491 |1491 |1491 |1282 
+|SIFT|1248 |1249 |N/A |1239 |N/A |804 
 
-| Detector\Descriptor | BRISK | BRIEF | ORB | FREAK | AKAZE | SIFT |
-| --- | --- | --- |--- |--- |--- |--- |
-| SHITOMASI| 17.98 |21.38|18.8|52.4079|N/A| 31.82|
-| HARRIS | 13.28|14.50 |14.24|32.07| N/A| 22.31|
-| FAST| **3.98** | **3.72** | **3.12** |22.91|N/A|14.72|
-| BRISK| 34.84 |33.42|40.72|54.59|N/A|54.73|
-| ORB| 5.82 |6.91|11.12|22.52|N/A|23.83|
-| AKAZE| 51.55|53.93 |57.92|75.42|93.73|67.89|
-| SIFT| 68.54 |88.18|N/A|113.33|N/A|137.67|
 
 The top 3 detector/descriptor combinations are found by evaluating the tables above.
 
 In terms of number of matched keypoints (More is better)
-  1. BRISK/SIFT
+  1. BRISK/BRISK
   2. BRISK/BRIEF
-  3. BRISK/BRISK
+  3. BRISK/ORB
 
 In terms of execution time (Small is better)
-  1. FAST/ORB
-  2. FAST/BRIEF
-  3. FAST/BRISK
+  1. SHITOMASI/BRIEF
+  2. SHITOMASI/ORB
+  3. HARRIS/BRIEF
